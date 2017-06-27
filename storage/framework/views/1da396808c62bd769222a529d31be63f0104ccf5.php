@@ -1,0 +1,276 @@
+
+
+    
+
+    <?php $__env->startSection('title', '| Create New Meeting'); ?>
+
+    <?php $__env->startSection('assets'); ?>
+    <link rel='stylesheet' href='/css/parsley.css' />
+    <?php $__env->stopSection(); ?>
+
+    <?php $__env->startSection('content'); ?>
+    <div class="container" ng-app="MyApp" > 
+        <div class="row">
+
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><span class="glyphicon glyphicon-blackboard"></span>  Create Meeting</div>
+                    <div class="panel-body">
+
+                        <form  class="form-horizontal"  role="form" method="POST" action="<?php echo e(route('meetings.store')); ?>" data-parsley-validate="">
+                            <?php echo e(csrf_field()); ?>
+
+
+                            <div class="form-group<?php echo e($errors->has('meetingName') ? ' has-error' : ''); ?>">
+                                <label for="meetingName" class="col-md-4 control-label">Meeting Topic:</label>
+
+                                <div class="col-md-6">
+                                    <textarea rows="4" cols="" class="form-control" name="meetingTopic">
+                                    </textarea>                                
+
+                                    <?php if($errors->has('meetingName')): ?>
+                                    <span class="help-block">
+                                        <strong><?php echo e($errors->first('meetingName')); ?></strong>
+                                    </span>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <div class="form-group<?php echo e($errors->has('meetStartDate') ? ' has-error' : ''); ?>">
+                                <label for="meetStartDate" class="col-md-4 control-label">Start Date:</label>
+
+                                <div class="col-md-6">
+                                    <input id="meetStartDate" type="date" class="form-control" name="meetStartDate" value="<?php echo e(old('meetStartDate')); ?>" required autofocus>
+
+                                    <?php if($errors->has('meetStartDate')): ?>
+                                    <span class="help-block">
+                                        <strong><?php echo e($errors->first('meetStartDate')); ?></strong>
+                                    </span>
+                                    <?php endif; ?>
+                                </div>
+                                
+                            </div>
+                            <div class="form-group<?php echo e($errors->has('meetEndDate') ? ' has-error' : ''); ?>">
+                                <label for="meetEndDate" class="col-md-4 control-label">End Date:</label>
+
+                                <div class="col-md-6">
+                                    <input id="meetEndDate" type="date" class="form-control" name="meetEndDate" value="<?php echo e(old('meetEndDate')); ?>" required autofocus>
+
+                                    <?php if($errors->has('meetEndDate')): ?>
+                                    <span class="help-block">
+                                        <strong><?php echo e($errors->first('meetEndDate')); ?></strong>
+                                    </span>
+                                    <?php endif; ?>
+                                </div>
+                                
+                            </div>
+
+                            
+
+                            <div class="form-group<?php echo e($errors->has('room') ? ' has-error' : ''); ?>">
+                                <label for="room" class="col-md-4 control-label">Room:</label>
+
+                                <div class="col-md-6">
+
+                                    <p>
+                                        <select class="form-control" name="room">
+                                          <option value="room1">Room 1</option>
+                                          <option value="room2">Room 2</option>
+                                          <option value="room3">Room 3</option>
+                                          <option value="room4">Room 4</option>
+                                          <option value="room5">Room 5</option>
+                                      </select>
+
+
+                                      <?php if($errors->has('room')): ?>
+                                      <span class="help-block">
+                                        <strong><?php echo e($errors->first('room')); ?></strong>
+                                    </span>
+                                    <?php endif; ?>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group<?php echo e($errors->has('visitReason') ? ' has-error' : ''); ?>">
+                            <label for="visitReason" class="col-md-4 control-label"> Meeting Purpose:</label>
+
+                            <div class="col-md-6">
+                                <textarea rows="4" cols="" class="form-control" name="visitReason">
+                                </textarea>                                
+
+                                <?php if($errors->has('visitReason')): ?>
+                                <span class="help-block">
+                                    <strong><?php echo e($errors->first('visitReason')); ?></strong>
+                                </span>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+
+                        <div class="form-group<?php echo e($errors->has('room') ? ' has-error' : ''); ?>">
+                            <label for="confidentiality" class="col-md-4 control-label">Confidentiality:</label>
+
+                            <div class="col-md-6">
+
+                                <input id="confidentiality" type="checkbox"  name="confidentiality" value="1" required autofocus>
+
+                                <?php if($errors->has('confidentiality')): ?>
+                                <span class="help-block">
+                                    <strong><?php echo e($errors->first('confidentiality')); ?></strong>
+                                </span>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group<?php echo e($errors->has('sensibility') ? ' has-error' : ''); ?>">
+                            <label for="sensibility" class="col-md-4 control-label">Sensibility:</label>
+
+                            <div class="col-md-6">
+                             <label class="radio-inline"><input type="radio" name="sensibility" value="3">High</label>
+                             <label class="radio-inline"><input type="radio" name="sensibility" value="2">Medium </label>
+                             <label class="radio-inline"><input type="radio" name="sensibility" value="1">Small</label>
+
+                             <?php if($errors->has('sensibility')): ?>
+                             <span class="help-block">
+                                <strong><?php echo e($errors->first('sensibility')); ?></strong>
+                            </span>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
+                    <div class="form-group<?php echo e($errors->has('meetStatus') ? ' has-error' : ''); ?>">
+                        <label for="meetStatus" class="col-md-4 control-label">Status:</label>
+
+                        <div class="col-md-6" >
+                            <p>
+                                <select class="form-control" value="scheduled" name="meetStatus">
+                                  <option value="1">Scheduled</option>
+                                  <option disabled value="2">Waiting Confirmation</option>
+                                  <option  disabled="" value="3">Canceled</option>
+                                  <option  disabled="" value="4">Finished</option>
+                              </select>
+
+                              <?php if($errors->has('meetStatus')): ?>
+                              <span class="help-block">
+                                <strong><?php echo e($errors->first('meetStatus')); ?></strong>
+                            </span>
+                            <?php endif; ?>
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="form-group<?php echo e($errors->has('meetIdHost') ? ' has-error' : ''); ?>">
+                    <label for="meetIdHost" class="col-md-4 control-label">Host Identification:</label>
+
+                    <div class="col-md-6">
+                        <input class="form-control" name="meetIdHost" readonly value="<?php echo e(Auth::user()->username); ?>">  </input>                                
+
+                        <?php if($errors->has('meetIdHost')): ?>
+                        <span class="help-block">
+                            <strong><?php echo e($errors->first('meetIdHost')); ?></strong>
+                        </span>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <div class="form-group<?php echo e($errors->has('sendmail') ? ' has-error' : ''); ?>">
+                    <label for="sendmail" class="col-md-4 control-label">Send Email:</label>
+
+                    <div class="col-md-6">
+
+                        <input id="sendmail" type="checkbox"  name="sendmail" value="<?php echo e(old('sendmail')); ?>" required autofocus>
+
+                        <?php if($errors->has('sendmail')): ?>
+                        <span class="help-block">
+                            <strong><?php echo e($errors->first('sendmail')); ?></strong>
+                        </span>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6 col-md-offset-4">
+                        <button type="submit" class="btn btn-default btn-lg btn-block">
+                           Save Meeting
+                       </button>
+
+
+                   </div>
+               </div>              
+
+           </form>
+
+
+       </div>
+    </div>
+
+
+
+
+
+
+
+
+    </div>
+
+    <?php if(! empty($meeting)): ?>
+
+    <div class="col-md-8 col-md-offset-2"   ng-controller="ShowController" >
+        <div class="panel panel-default" >
+         <div class="panel-heading">External Visitor</div>
+
+         <div class="container"  >
+
+             <div class="btn-group" >  
+                <button style="width:150px;" class="btn btn-default btn-xs btn-block" ng-click="ShowHide()" value="" > 
+                  <span  ng-if="IsVisible==true">Hide </span>
+                  <span ng-if="IsVisible==false">Show </span> 
+                  Form
+              </button>
+
+
+
+
+          </div>
+      </div>
+
+      <?php echo $__env->make('meetings.externalVisitor', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    </div>
+    </div>
+      <?php endif; ?>
+       <?php if(! empty($meeting)): ?>
+
+    <div class="col-md-8 col-md-offset-2" ng-controller="ShowController" >
+        <div class="panel panel-default">
+           <div class="panel-heading">Internal Visitor</div>
+
+
+           <div class="container"  >
+
+             <div class="btn-group" >  
+                <button style="width:150px;" class="btn btn-default btn-xs btn-block" ng-click="ShowHide()"  ng-model="button" > 
+                 <span  ng-if="IsVisible2==true">Hide </span>
+                 <span ng-if="IsVisible2==false">Show </span> 
+                 Form
+             </button>
+
+
+             
+
+         </div>
+     </div>
+
+
+
+     <?php echo $__env->make('meetings.internalVisitor', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    </div>
+
+
+
+    </div>
+        <?php endif; ?>
+  
+    </div>
+
+
+
+    <?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('main', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
